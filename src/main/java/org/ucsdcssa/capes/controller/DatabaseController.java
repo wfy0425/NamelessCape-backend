@@ -130,7 +130,7 @@ public class DatabaseController {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/allCourse", method = RequestMethod.POST)
-    public JsonResult CompareDb(@RequestBody JSONArray response) {
+    public JsonResult insertAll(@RequestBody JSONArray response) {
 //        JSONArray jsonArray = response.getJSONArray("student");
         JsonResult jr = new JsonResult();
         jr.setObj(databaseService.insertAll(response));
