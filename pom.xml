@@ -11,7 +11,7 @@
     <groupId>org.ucsdcssa</groupId>
     <artifactId>capes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
     <name>capes</name>
     <description>backend of new unnamed capes</description>
 
