@@ -139,11 +139,31 @@ public class DatabaseController {
         return jr;
     }
 
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.GET)
+//    public JsonResult getByCourse(@PathVariable String department, @PathVariable String courseCode,
+//                                  String instructor,
+//                                  float maxExpectedGPA, float minExpectedGPA,
+//                                  float maxReceivedGPA, float minReceivedGPA,
+//                                  float maxStudyHrs, float minStudyHrs) {
+//
+//        JsonResult jr = new JsonResult();
+//        jr.setObj(databaseService.getByCourse(department,courseCode));
+//        jr.setMsg("OK");
+//        jr.setCode(200L);
+//        return jr;
+//    }
+
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.GET)
-    public JsonResult getByCourse(@PathVariable String department, @PathVariable String courseCode) {
+    public JsonResult getByCourseExtend(@PathVariable String department, @PathVariable String courseCode,
+                                  String instructor,
+                                        Float maxExpectedGPA, Float minExpectedGPA,
+                                        Float maxReceivedGPA, Float minReceivedGPA,
+                                        Float maxStudyHrs, Float minStudyHrs) {
+
         JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByCourse(department,courseCode));
+        jr.setObj(databaseService.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs));
         jr.setMsg("OK");
         jr.setCode(200L);
         return jr;
@@ -168,6 +188,8 @@ public class DatabaseController {
         jr.setCode(200L);
         return jr;
     }
+
+
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/expectedGPA/{max}.{min}", method = RequestMethod.GET)
     public JsonResult getByExpectedGPA(@PathVariable float max,@PathVariable float min ) {

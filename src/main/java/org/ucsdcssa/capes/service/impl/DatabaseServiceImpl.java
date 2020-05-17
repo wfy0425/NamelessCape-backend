@@ -256,4 +256,9 @@ public class DatabaseServiceImpl implements DatabaseService {
     public List<Course> getByStudyHrs(float max, float min) {
         return databaseDao.getByStudyHrs(max,min);
     }
+
+    @Override
+    public List<Course> getByCourseExtend(String department, String courseCode, String instructor, Float maxExpectedGPA, Float minExpectedGPA, Float maxReceivedGPA, Float minReceivedGPA, Float maxStudyHrs, Float minStudyHrs) {
+        return databaseDao.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs);
+    }
 }

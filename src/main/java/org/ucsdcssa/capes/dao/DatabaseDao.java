@@ -80,4 +80,22 @@ public interface DatabaseDao {
             "</script>"})
     boolean insert(List<Course> list);
 
+    @Select({
+            "<script>",
+            "select instructor, course, term, enroll, evalsMade, rcmndClass, rcmndInstr, studyHrs, " +
+                    "avgGradeExpected, avgGradeReceived, department, courseCode from course_data " +
+                    "where " +
+                    "department = #{department} AND courseCode = #{courseCode}" +
+
+                    "<if test=\"instructor != null\"> AND instructor = #{instructor} </if>"+
+                    "<if test=\"maxExpectedGPA != null\"> <![CDATA[AND avgGradeExpected <= #{maxExpectedGPA}]]> </if>"+
+                    "<if test=\"minExpectedGPA != null\"> AND avgGradeExpected >= #{minExpectedGPA} </if>"+
+                    "<if test=\"maxReceivedGPA != null\"> <![CDATA[AND avgGradeReceived <= #{maxReceivedGPA}]]> </if>"+
+                    "<if test=\"minReceivedGPA != null\"> AND avgGradeReceived >= #{minReceivedGPA} </if>"+
+                    "<if test=\"maxStudyHrs != null\"> <![CDATA[AND studyHrs <= #{maxStudyHrs}]]> </if>"+
+                    "<if test=\"minStudyHrs != null\"> AND studyHrs >= #{minStudyHrs} </if>",
+            "</script>"
+    })
+    List<Course> getByCourseExtend(String department, String courseCode, String instructor, Float maxExpectedGPA, Float minExpectedGPA, Float maxReceivedGPA, Float minReceivedGPA, Float maxStudyHrs, Float minStudyHrs);
+
 }
