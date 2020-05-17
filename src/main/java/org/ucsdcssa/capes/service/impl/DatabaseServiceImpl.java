@@ -7,6 +7,7 @@ import com.alibaba.fastjson.TypeReference;
 import org.ucsdcssa.capes.dao.DatabaseDao;
 import org.ucsdcssa.capes.dbcomparator.DatabaseComparator;
 import org.ucsdcssa.capes.pojo.Column;
+import org.ucsdcssa.capes.pojo.Course;
 import org.ucsdcssa.capes.pojo.Table;
 import org.ucsdcssa.capes.pojo.User;
 import org.ucsdcssa.capes.service.DatabaseService;
@@ -27,7 +28,7 @@ import java.util.Scanner;
 @Service
 public class DatabaseServiceImpl implements DatabaseService {
     @Autowired
-    private DatabaseDao databaseDao =null;
+    private DatabaseDao databaseDao = null;
 
 //    @Value("${database.JSON.path}")
 //    String JSONPath = null;
@@ -35,103 +36,103 @@ public class DatabaseServiceImpl implements DatabaseService {
 //    String SQLPath = null;
 
 
-    @Override
-    public User getUser(Long id) {
-        return databaseDao.getUser(id);
-    }
-
-    @Override
-    public List<Map> listTable() {
-        return databaseDao.listTable();
-    }
-
-    @Override
-    public List<Map> listTableColumn(String tableName) {
-        return databaseDao.listTableColumn(tableName);
-    }
-
-    @Override
-    public Map<String, Table> printStructure() {
-        List<Map> tableMapList = listTable();
-//        String[] tableArray = new String[tableMapList.size()];
-        Table table;
-        Column column;
-        String tableName;
-        HashMap<String, Column> columnsMap;
-        Map<String, Table> tablesMap = new HashMap<>();
-//        List<Table> tableList = new ArrayList<>();
-        for (Map map : tableMapList) {
-//            tableArray[i]= (String) tableMapList.get(i).get("TABLE_NAME");
-            tableName = (String) map.get("TABLE_NAME");
-            List<Map> columnMapList = listTableColumn(tableName);
-            columnsMap = new HashMap<>();
-
-            for (Map map1 : columnMapList) {
-                column = new Column();
-                String columnName = (String) map1.get("COLUMN_NAME");
-                column.setColumnName(columnName);
-                column.setColumnKey((String) map1.get("COLUMN_KEY"));
-                column.setColumnType((String) map1.get("COLUMN_TYPE"));
-                column.setExtra((String) map1.get("EXTRA"));
-                column.setIsNullable((String) map1.get("IS_NULLABLE"));
-                column.setTableName((String) map1.get("TABLE_NAME"));
-                columnsMap.put(columnName, column);
-            }
-            table = new Table();
-            table.setColumns(columnsMap);
-            table.setTableName(tableName);
-            tablesMap.put(tableName, table);
-//            tableList.add(table);
-
-        }
-        try {
-            JSONObject json = new JSONObject();
-            json.put("db", tablesMap);
-            File file = new File("./src/main/resources/static/data/oldDb.json");
-            // if file doesnt exists, then create it
-            if (!file.exists()) {
-                file.createNewFile();
-            }
-
-            FileWriter fw = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(JSON.toJSONString(tablesMap));
-            bw.close();
-
-            System.out.println("Done");
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return tablesMap;
-    }
-
-    @Override
-    public boolean createTable(String generatorName, List<Table> tableList) {
-        if (tableList.size()==0){
-            return false;
-        }
-        SQLGenerator sqlGenerator = (SQLGenerator)SpringUtil.getBean(generatorName);
-        return databaseDao.operateBySQL(sqlGenerator.createTable(tableList));
-    }
-
-    @Override
-    public boolean addColumn(String generatorName, List<Column> columnList) {
-        if (columnList.size()==0){
-            return false;
-        }
-        SQLGenerator sqlGenerator = (SQLGenerator)SpringUtil.getBean(generatorName);
-        return databaseDao.operateBySQL(sqlGenerator.addColumn(columnList));
-    }
-
-    @Override
-    public boolean modifyColumn(String generatorName, List<Column> columnList) {
-        if (columnList.size()==0){
-            return false;
-        }
-        SQLGenerator sqlGenerator = (SQLGenerator)SpringUtil.getBean(generatorName);
-        return databaseDao.operateBySQL(sqlGenerator.modifyColumn(columnList));
-    }
+//    @Override
+//    public User getUser(Long id) {
+//        return databaseDao.getUser(id);
+//    }
+//
+//    @Override
+//    public List<Map> listTable() {
+//        return databaseDao.listTable();
+//    }
+//
+//    @Override
+//    public List<Map> listTableColumn(String tableName) {
+//        return databaseDao.listTableColumn(tableName);
+//    }
+//
+//    @Override
+//    public Map<String, Table> printStructure() {
+//        List<Map> tableMapList = listTable();
+////        String[] tableArray = new String[tableMapList.size()];
+//        Table table;
+//        Column column;
+//        String tableName;
+//        HashMap<String, Column> columnsMap;
+//        Map<String, Table> tablesMap = new HashMap<>();
+////        List<Table> tableList = new ArrayList<>();
+//        for (Map map : tableMapList) {
+////            tableArray[i]= (String) tableMapList.get(i).get("TABLE_NAME");
+//            tableName = (String) map.get("TABLE_NAME");
+//            List<Map> columnMapList = listTableColumn(tableName);
+//            columnsMap = new HashMap<>();
+//
+//            for (Map map1 : columnMapList) {
+//                column = new Column();
+//                String columnName = (String) map1.get("COLUMN_NAME");
+//                column.setColumnName(columnName);
+//                column.setColumnKey((String) map1.get("COLUMN_KEY"));
+//                column.setColumnType((String) map1.get("COLUMN_TYPE"));
+//                column.setExtra((String) map1.get("EXTRA"));
+//                column.setIsNullable((String) map1.get("IS_NULLABLE"));
+//                column.setTableName((String) map1.get("TABLE_NAME"));
+//                columnsMap.put(columnName, column);
+//            }
+//            table = new Table();
+//            table.setColumns(columnsMap);
+//            table.setTableName(tableName);
+//            tablesMap.put(tableName, table);
+////            tableList.add(table);
+//
+//        }
+//        try {
+//            JSONObject json = new JSONObject();
+//            json.put("db", tablesMap);
+//            File file = new File("./src/main/resources/static/data/oldDb.json");
+//            // if file doesnt exists, then create it
+//            if (!file.exists()) {
+//                file.createNewFile();
+//            }
+//
+//            FileWriter fw = new FileWriter(file.getAbsoluteFile());
+//            BufferedWriter bw = new BufferedWriter(fw);
+//            bw.write(JSON.toJSONString(tablesMap));
+//            bw.close();
+//
+//            System.out.println("Done");
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//        return tablesMap;
+//    }
+//
+//    @Override
+//    public boolean createTable(String generatorName, List<Table> tableList) {
+//        if (tableList.size()==0){
+//            return false;
+//        }
+//        SQLGenerator sqlGenerator = (SQLGenerator)SpringUtil.getBean(generatorName);
+//        return databaseDao.operateBySQL(sqlGenerator.createTable(tableList));
+//    }
+//
+//    @Override
+//    public boolean addColumn(String generatorName, List<Column> columnList) {
+//        if (columnList.size()==0){
+//            return false;
+//        }
+//        SQLGenerator sqlGenerator = (SQLGenerator)SpringUtil.getBean(generatorName);
+//        return databaseDao.operateBySQL(sqlGenerator.addColumn(columnList));
+//    }
+//
+//    @Override
+//    public boolean modifyColumn(String generatorName, List<Column> columnList) {
+//        if (columnList.size()==0){
+//            return false;
+//        }
+//        SQLGenerator sqlGenerator = (SQLGenerator)SpringUtil.getBean(generatorName);
+//        return databaseDao.operateBySQL(sqlGenerator.modifyColumn(columnList));
+//    }
 
 //    @Override
 //    public DbCompareResult mergeDb(String generatorName) {
@@ -211,4 +212,48 @@ public class DatabaseServiceImpl implements DatabaseService {
 //            return null;
 //        }
 //    }
+
+    @Override
+    public boolean insertAll(JSONArray response) {
+        String jsonStr = JSONArray.toJSONString(response);
+
+        List<Course> courseList = JSONArray.parseObject(jsonStr, new TypeReference<List<Course>>() {});
+        for (Course course:courseList) {
+            String[] courseName = course.getCourse().split("-");
+            String[] courseCode = courseName[0].split(" ");
+            course.setDepartment(courseCode[0]);
+            course.setCourseCode(courseCode[1]);
+        }
+        return databaseDao.insert(courseList);
+    }
+
+    @Override
+    public List<Course> getByCourse(String department, String courseCode) {
+        return databaseDao.getByCourse(department,courseCode);
+    }
+
+    @Override
+    public List<Course> getByTerm(String term) {
+        return databaseDao.getByTerm(term);
+    }
+
+    @Override
+    public List<Course> getByInstructor(String instructor) {
+        return databaseDao.getByInstructor(instructor);
+    }
+
+    @Override
+    public List<Course> getByExpectedGPA(float max, float min) {
+        return databaseDao.getByExpectedGPA(max,min);
+    }
+
+    @Override
+    public List<Course> getByReceivedGPA(float max, float min) {
+        return databaseDao.getByReceivedGPA(max,min);
+    }
+
+    @Override
+    public List<Course> getByStudyHrs(float max, float min) {
+        return databaseDao.getByStudyHrs(max,min);
+    }
 }

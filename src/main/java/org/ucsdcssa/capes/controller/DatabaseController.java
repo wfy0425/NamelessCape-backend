@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
 import org.ucsdcssa.capes.dbcomparator.DatabaseComparator;
+import org.ucsdcssa.capes.pojo.Course;
 import org.ucsdcssa.capes.pojo.Table;
 import org.ucsdcssa.capes.service.DatabaseService;
 import org.ucsdcssa.capes.util.JsonResult;
@@ -12,7 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.ucsdcssa.capes.pojo.User;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -22,49 +25,49 @@ public class DatabaseController {
     @Autowired
     private DatabaseService databaseService = null;
 
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value="/getUser",method= RequestMethod.GET)
-    @ResponseBody
-    public User getUser(Long id) {
-        User user = databaseService.getUser(id);
-        if(user==null) {
-            throw new RuntimeException();
-        }
-        return user;
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value="/list",method= RequestMethod.GET)
-    public JsonResult list() {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.listTable());
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value="/columns/{tableName}",method= RequestMethod.GET)
-    public JsonResult ServiceRowsResult(@PathVariable("tableName")String tableName) {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.listTableColumn(tableName));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
-    }
-
-    @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value="/print",method= RequestMethod.GET)
-    public JsonResult printStructure() {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.printStructure());
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
-    }
-
 //    @ResponseStatus(HttpStatus.OK)
-//    @RequestMapping(value="/comparedb",method= RequestMethod.POST)
+//    @RequestMapping(value="/getUser",method= RequestMethod.GET)
+//    @ResponseBody
+//    public User getUser(Long id) {
+//        User user = databaseService.getUser(id);
+//        if(user==null) {
+//            throw new RuntimeException();
+//        }
+//        return user;
+//    }
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value="/list",method= RequestMethod.GET)
+//    public JsonResult list() {
+//        JsonResult jr = new JsonResult();
+//        jr.setObj(databaseService.listTable());
+//        jr.setMsg("OK");
+//        jr.setCode(200L);
+//        return jr;
+//    }
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value="/columns/{tableName}",method= RequestMethod.GET)
+//    public JsonResult ServiceRowsResult(@PathVariable("tableName")String tableName) {
+//        JsonResult jr = new JsonResult();
+//        jr.setObj(databaseService.listTableColumn(tableName));
+//        jr.setMsg("OK");
+//        jr.setCode(200L);
+//        return jr;
+//    }
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value="/print",method= RequestMethod.GET)
+//    public JsonResult printStructure() {
+//        JsonResult jr = new JsonResult();
+//        jr.setObj(databaseService.printStructure());
+//        jr.setMsg("OK");
+//        jr.setCode(200L);
+//        return jr;
+//    }
+//
+//    @ResponseStatus(HttpStatus.OK)
+//    @RequestMapping(value="/update",method= RequestMethod.POST)
 //    public JsonResult CompareDb(@RequestBody JSONObject response) {
 ////        JSONArray jsonArray = response.getJSONArray("student");
 //        String jsonStr1 = JSONArray.toJSONString(response.getJSONObject("student"));
@@ -125,4 +128,71 @@ public class DatabaseController {
 //        return jr;
 //    }
 
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/allCourse", method = RequestMethod.POST)
+    public JsonResult CompareDb(@RequestBody JSONArray response) {
+//        JSONArray jsonArray = response.getJSONArray("student");
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.insertAll(response));
+        jr.setMsg("created");
+        jr.setCode(201L);
+        return jr;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.GET)
+    public JsonResult getByCourse(@PathVariable String department, @PathVariable String courseCode) {
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.getByCourse(department,courseCode));
+        jr.setMsg("OK");
+        jr.setCode(200L);
+        return jr;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/term/{term}", method = RequestMethod.GET)
+    public JsonResult getByTerm(@PathVariable String term) {
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.getByTerm(term));
+        jr.setMsg("OK");
+        jr.setCode(200L);
+        return jr;
+    }
+
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/instructor/{instructor}", method = RequestMethod.GET)
+    public JsonResult getByInstructor(@PathVariable String instructor) {
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.getByInstructor(instructor));
+        jr.setMsg("OK");
+        jr.setCode(200L);
+        return jr;
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/expectedGPA/{max}.{min}", method = RequestMethod.GET)
+    public JsonResult getByExpectedGPA(@PathVariable float max,@PathVariable float min ) {
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.getByExpectedGPA(max,min));
+        jr.setMsg("OK");
+        jr.setCode(200L);
+        return jr;
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/receivedGPA/{max}.{min}", method = RequestMethod.GET)
+    public JsonResult getByReceivedGPA(@PathVariable float max,@PathVariable float min ) {
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.getByReceivedGPA(max,min));
+        jr.setMsg("OK");
+        jr.setCode(200L);
+        return jr;
+    }
+    @ResponseStatus(HttpStatus.OK)
+    @RequestMapping(value = "/studyHrs/{max}.{min}", method = RequestMethod.GET)
+    public JsonResult getByStudyHrs(@PathVariable float max,@PathVariable float min ) {
+        JsonResult jr = new JsonResult();
+        jr.setObj(databaseService.getByStudyHrs(max,min));
+        jr.setMsg("OK");
+        jr.setCode(200L);
+        return jr;
+    }
 }
