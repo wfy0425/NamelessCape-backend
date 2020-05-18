@@ -31,5 +31,6 @@ build/
 .vscode/
 output/data.json
 
-/output/
+output/
 output/data.json
+*.log
