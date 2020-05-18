@@ -159,7 +159,7 @@ public class DatabaseController {
 
         if(department==null||department.length()==0||courseCode==null||courseCode.length()==0)
             throw new BadRequestException(400L,"Illegal Argument");
-        
+
 
         List<Course> ans = databaseService.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,
                 minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs);

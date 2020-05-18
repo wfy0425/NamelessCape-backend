@@ -2,13 +2,10 @@ package org.ucsdcssa.capes.dao;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
-import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 import org.ucsdcssa.capes.pojo.Course;
-import org.ucsdcssa.capes.pojo.User;
 
 import java.util.List;
-import java.util.Map;
 
 @Repository
 public interface DatabaseDao {
