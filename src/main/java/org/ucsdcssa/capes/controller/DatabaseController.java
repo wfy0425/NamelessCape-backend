@@ -13,7 +13,7 @@ import org.ucsdcssa.capes.util.JsonResult;
 import java.util.List;
 
 @RestController
-@RequestMapping("/ucsdcssa")
+@RequestMapping("/namelesscape")
 public class DatabaseController {
 
     @Autowired
