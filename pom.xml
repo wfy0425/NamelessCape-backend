@@ -12,8 +12,8 @@
     <artifactId>capes</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
-    <name>capes</name>
-    <description>backend of new unnamed capes</description>
+    <name>nameless cape</name>
+    <description>backend of nameless cape</description>
 
     <properties>
         <java.version>1.8</java.version>
