@@ -1,22 +1,16 @@
 package org.ucsdcssa.capes.controller;
 
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.TypeReference;
-import org.ucsdcssa.capes.dbcomparator.DatabaseComparator;
-import org.ucsdcssa.capes.pojo.Course;
-import org.ucsdcssa.capes.pojo.Table;
-import org.ucsdcssa.capes.service.DatabaseService;
-import org.ucsdcssa.capes.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import org.ucsdcssa.capes.pojo.User;
+import org.ucsdcssa.capes.exception.BadRequestException;
+import org.ucsdcssa.capes.exception.NotFoundException;
+import org.ucsdcssa.capes.pojo.Course;
+import org.ucsdcssa.capes.service.DatabaseService;
+import org.ucsdcssa.capes.util.JsonResult;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/ucsdcssa")
@@ -128,7 +122,7 @@ public class DatabaseController {
 //        return jr;
 //    }
 
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     @RequestMapping(value = "/allCourse", method = RequestMethod.POST)
     public JsonResult insertAll(@RequestBody JSONArray response) {
 //        JSONArray jsonArray = response.getJSONArray("student");
@@ -156,65 +150,75 @@ public class DatabaseController {
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.GET)
-    public JsonResult getByCourseExtend(@PathVariable String department, @PathVariable String courseCode,
+    public List<Course> getByCourseExtend(@PathVariable String department, @PathVariable String courseCode,
                                   String instructor,
                                         Float maxExpectedGPA, Float minExpectedGPA,
                                         Float maxReceivedGPA, Float minReceivedGPA,
                                         Float maxStudyHrs, Float minStudyHrs) {
 
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
+
+        if(department==null||department.length()==0||courseCode==null||courseCode.length()==0)
+            throw new BadRequestException(400L,"Illegal Argument");
+        
+
+        List<Course> ans = databaseService.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,
+                minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs);
+        if(ans==null||ans.size()==0)
+            throw new NotFoundException(404L,"Not Found" );
+        return ans;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/term/{term}", method = RequestMethod.GET)
-    public JsonResult getByTerm(@PathVariable String term) {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByTerm(term));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
+    public List<Course> getByTerm(@PathVariable String term) {
+        if(term==null||term.length()==0)
+            throw new BadRequestException(400L,"Illegal Argument");
+        List<Course> ans = databaseService.getByTerm(term);
+        if(ans==null||ans.size()==0)
+            throw new NotFoundException(404L,"Not Found" );
+        return ans;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/instructor/{instructor}", method = RequestMethod.GET)
-    public JsonResult getByInstructor(@PathVariable String instructor) {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByInstructor(instructor));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
+    public List<Course> getByInstructor(@PathVariable String instructor) {
+        if(instructor==null||instructor.length()==0)
+            throw new BadRequestException(400L,"Illegal Argument");
+        List<Course> ans = databaseService.getByInstructor(instructor);
+        if(ans==null||ans.size()==0)
+            throw new NotFoundException(404L,"Not Found" );
+        return ans;
     }
 
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/expectedGPA/{max}.{min}", method = RequestMethod.GET)
-    public JsonResult getByExpectedGPA(@PathVariable float max,@PathVariable float min ) {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByExpectedGPA(max,min));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
+    public List<Course> getByExpectedGPA(@PathVariable float max,@PathVariable float min ) {
+        if(max>4||min<0)
+            throw new BadRequestException(400L,"Illegal Argument");
+        List<Course> ans = databaseService.getByExpectedGPA(max,min);
+        if(ans==null||ans.size()==0)
+            throw new NotFoundException(404L,"Not Found" );
+        return ans;
     }
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/receivedGPA/{max}.{min}", method = RequestMethod.GET)
-    public JsonResult getByReceivedGPA(@PathVariable float max,@PathVariable float min ) {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByReceivedGPA(max,min));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
+    public List<Course> getByReceivedGPA(@PathVariable float max,@PathVariable float min ) {
+        if(max>4||min<0)
+            throw new BadRequestException(400L,"Illegal Argument");
+        List<Course> ans = databaseService.getByReceivedGPA(max,min);
+        if(ans==null||ans.size()==0)
+            throw new NotFoundException(404L,"Not Found" );
+        return ans;
     }
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/studyHrs/{max}.{min}", method = RequestMethod.GET)
-    public JsonResult getByStudyHrs(@PathVariable float max,@PathVariable float min ) {
-        JsonResult jr = new JsonResult();
-        jr.setObj(databaseService.getByStudyHrs(max,min));
-        jr.setMsg("OK");
-        jr.setCode(200L);
-        return jr;
+    public List<Course> getByStudyHrs(@PathVariable float max,@PathVariable float min ) {
+        if(min<0)
+            throw new BadRequestException(400L,"Illegal Argument");
+        List<Course> ans = databaseService.getByStudyHrs(max,min);
+        if(ans==null||ans.size()==0)
+            throw new NotFoundException(404L,"Not Found" );
+        return ans;
     }
 }

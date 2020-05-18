@@ -1,29 +1,14 @@
 package org.ucsdcssa.capes.service.impl;
 
-import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.TypeReference;
-import org.ucsdcssa.capes.dao.DatabaseDao;
-import org.ucsdcssa.capes.dbcomparator.DatabaseComparator;
-import org.ucsdcssa.capes.pojo.Column;
-import org.ucsdcssa.capes.pojo.Course;
-import org.ucsdcssa.capes.pojo.Table;
-import org.ucsdcssa.capes.pojo.User;
-import org.ucsdcssa.capes.service.DatabaseService;
-import org.ucsdcssa.capes.service.SQLGenerator;
-import org.ucsdcssa.capes.util.DbCompareResult;
-import org.ucsdcssa.capes.util.JsonResult;
-import org.ucsdcssa.capes.util.SpringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.ucsdcssa.capes.dao.DatabaseDao;
+import org.ucsdcssa.capes.pojo.Course;
+import org.ucsdcssa.capes.service.DatabaseService;
 
-import java.io.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 @Service
 public class DatabaseServiceImpl implements DatabaseService {

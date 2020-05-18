@@ -1,15 +1,9 @@
 package org.ucsdcssa.capes.service;
 
 import com.alibaba.fastjson.JSONArray;
-import org.apache.ibatis.annotations.Select;
-import org.ucsdcssa.capes.pojo.Column;
 import org.ucsdcssa.capes.pojo.Course;
-import org.ucsdcssa.capes.pojo.Table;
-import org.ucsdcssa.capes.pojo.User;
-import org.ucsdcssa.capes.util.DbCompareResult;
 
 import java.util.List;
-import java.util.Map;
 
 public interface DatabaseService {
 //    List<Map> listTable();
