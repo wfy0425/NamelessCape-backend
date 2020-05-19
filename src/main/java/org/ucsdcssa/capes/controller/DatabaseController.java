@@ -12,6 +12,7 @@ import org.ucsdcssa.capes.util.JsonResult;
 
 import java.util.List;
 
+@CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/namelesscape")
 public class DatabaseController {
@@ -149,7 +150,7 @@ public class DatabaseController {
 //    }
 
     @ResponseStatus(HttpStatus.OK)
-    @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.GET)
+    @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.POST)
     public List<Course> getByCourseExtend(@PathVariable String department, @PathVariable String courseCode,
                                   String instructor,
                                         Float maxExpectedGPA, Float minExpectedGPA,

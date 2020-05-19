@@ -5,7 +5,7 @@ This project is the backend of the Nameless Cape. Nameless Cape aims to improve 
 
 ## Quick Start
 ### Get Course Information By Course Name
-Get course information by *GET* method though */namelesscape/course/COURSENAME.COUESECODE* 
+Get course information by *POST* method though */namelesscape/course/COURSENAME.COUESECODE* 
 ```
 http://localhost:8080/namelesscape/course/CSE.100
 ```
