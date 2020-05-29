@@ -50,7 +50,7 @@ public class CapesApplication  extends WebMvcConfigurerAdapter {
 //		//mapperScannerConfigurer.setMarkerInterface(。。。。。。);
 //		return mapperScannerConfigurer;
 //	}
-	
+
 //	@Autowired
 //	SqlSessionFactory sqlSessionFactory = null;
 //
@@ -61,7 +61,7 @@ public class CapesApplication  extends WebMvcConfigurerAdapter {
 //    	bean.setSqlSessionFactory(sqlSessionFactory);
 //    	return bean;
 //    }
-	
+
 	public static void main(String[] args) throws Exception {
 		SpringApplication.run(CapesApplication.class, args);
 	}
@@ -88,5 +88,5 @@ public class CapesApplication  extends WebMvcConfigurerAdapter {
 
 		converters.add(fastConverter);
 	}
-	
+
 }

@@ -12,7 +12,7 @@ import org.ucsdcssa.capes.util.JsonResult;
 
 import java.util.List;
 
-@CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*", allowedHeaders = "*")
+//@CrossOrigin(allowCredentials="true",maxAge = 3600,origins = "*", allowedHeaders = "*")
 @RestController
 @RequestMapping("/namelesscape")
 public class DatabaseController {

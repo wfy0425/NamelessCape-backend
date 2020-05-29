@@ -34,3 +34,4 @@ output/data.json
 output/
 output/data.json
 *.log
+src/main/resources/static/data/keystore.p12
