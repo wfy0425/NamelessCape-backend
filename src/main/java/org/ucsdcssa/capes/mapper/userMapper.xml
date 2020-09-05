@@ -13,33 +13,33 @@
 
     <insert id="insert" parameterType="user" useGeneratedKeys="true"
             keyProperty="id">
-       INSERT INTO
-       		t_user
-       		( user_name, sex, note )
-       	VALUES
-       		( #{userName}, #{sex}, #{note} )
+        INSERT INTO
+        t_user
+        ( user_name, sex, note )
+        VALUES
+        ( #{userName}, #{sex}, #{note} )
     </insert>
 
 
     <!--<insert id="insertOrUpdate_List" parameterType="user">-->
-        <!--insert into t_user ( id, user_name, sex, note )-->
-        <!--values-->
-        <!--<foreach collection ="list" item="userList" separator="," >-->
-            <!--(#{userList.id},#{userList.userName},#{userList.sex},#{userList.note})-->
-        <!--</foreach>-->
-        <!--ON conflict(id)-->
-        <!--DO UPDATE-->
-        <!--<set>-->
-            <!--<if test="userName != null">user_name = #{userName},</if>-->
-            <!--<if test="sex != null">sex = #{sex},</if>-->
-            <!--<if test="note != null">note = #{note}</if>-->
-        <!--</set>-->
+    <!--insert into t_user ( id, user_name, sex, note )-->
+    <!--values-->
+    <!--<foreach collection ="list" item="userList" separator="," >-->
+    <!--(#{userList.id},#{userList.userName},#{userList.sex},#{userList.note})-->
+    <!--</foreach>-->
+    <!--ON conflict(id)-->
+    <!--DO UPDATE-->
+    <!--<set>-->
+    <!--<if test="userName != null">user_name = #{userName},</if>-->
+    <!--<if test="sex != null">sex = #{sex},</if>-->
+    <!--<if test="note != null">note = #{note}</if>-->
+    <!--</set>-->
     <!--</insert>-->
 
     <insert id="insertOrUpdate_List" parameterType="user">
         insert into t_user ( id, user_name, sex, note )
         values
-        <foreach collection ="list" item="userList" separator="," >
+        <foreach collection="list" item="userList" separator=",">
             (#{userList.id},#{userList.userName},#{userList.sex},#{userList.note})
         </foreach>
         ON DUPLICATE KEY UPDATE
@@ -59,9 +59,9 @@
     </update>
 
     <delete id="delete" parameterType="long">
-       DELETE FROM
-       		 t_user
-       WHERE
-       		 id =#{id}
+        DELETE FROM
+        t_user
+        WHERE
+        id =#{id}
     </delete>
 </mapper>

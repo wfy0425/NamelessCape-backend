@@ -152,74 +152,76 @@ public class DatabaseController {
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/course/{department}.{courseCode}", method = RequestMethod.POST)
     public List<Course> getByCourseExtend(@PathVariable String department, @PathVariable String courseCode,
-                                  String instructor,
-                                        Float maxExpectedGPA, Float minExpectedGPA,
-                                        Float maxReceivedGPA, Float minReceivedGPA,
-                                        Float maxStudyHrs, Float minStudyHrs) {
+                                          String instructor,
+                                          Float maxExpectedGPA, Float minExpectedGPA,
+                                          Float maxReceivedGPA, Float minReceivedGPA,
+                                          Float maxStudyHrs, Float minStudyHrs) {
 
 
-        if(department==null||department.length()==0||courseCode==null||courseCode.length()==0)
-            throw new BadRequestException(400L,"Illegal Argument");
+        if (department == null || department.length() == 0 || courseCode == null || courseCode.length() == 0)
+            throw new BadRequestException(400L, "Illegal Argument");
 
 
-        List<Course> ans = databaseService.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,
-                minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs);
-        if(ans==null||ans.size()==0)
-            throw new NotFoundException(404L,"Not Found" );
+        List<Course> ans = databaseService.getByCourseExtend(department, courseCode, instructor, maxExpectedGPA,
+                minExpectedGPA, maxReceivedGPA, minReceivedGPA, maxStudyHrs, minStudyHrs);
+        if (ans == null || ans.size() == 0)
+            throw new NotFoundException(404L, "Not Found");
         return ans;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/term/{term}", method = RequestMethod.GET)
     public List<Course> getByTerm(@PathVariable String term) {
-        if(term==null||term.length()==0)
-            throw new BadRequestException(400L,"Illegal Argument");
+        if (term == null || term.length() == 0)
+            throw new BadRequestException(400L, "Illegal Argument");
         List<Course> ans = databaseService.getByTerm(term);
-        if(ans==null||ans.size()==0)
-            throw new NotFoundException(404L,"Not Found" );
+        if (ans == null || ans.size() == 0)
+            throw new NotFoundException(404L, "Not Found");
         return ans;
     }
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/instructor/{instructor}", method = RequestMethod.GET)
     public List<Course> getByInstructor(@PathVariable String instructor) {
-        if(instructor==null||instructor.length()==0)
-            throw new BadRequestException(400L,"Illegal Argument");
+        if (instructor == null || instructor.length() == 0)
+            throw new BadRequestException(400L, "Illegal Argument");
         List<Course> ans = databaseService.getByInstructor(instructor);
-        if(ans==null||ans.size()==0)
-            throw new NotFoundException(404L,"Not Found" );
+        if (ans == null || ans.size() == 0)
+            throw new NotFoundException(404L, "Not Found");
         return ans;
     }
 
 
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/expectedGPA/{max}.{min}", method = RequestMethod.GET)
-    public List<Course> getByExpectedGPA(@PathVariable float max,@PathVariable float min ) {
-        if(max>4||min<0)
-            throw new BadRequestException(400L,"Illegal Argument");
-        List<Course> ans = databaseService.getByExpectedGPA(max,min);
-        if(ans==null||ans.size()==0)
-            throw new NotFoundException(404L,"Not Found" );
+    public List<Course> getByExpectedGPA(@PathVariable float max, @PathVariable float min) {
+        if (max > 4 || min < 0)
+            throw new BadRequestException(400L, "Illegal Argument");
+        List<Course> ans = databaseService.getByExpectedGPA(max, min);
+        if (ans == null || ans.size() == 0)
+            throw new NotFoundException(404L, "Not Found");
         return ans;
     }
+
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/receivedGPA/{max}.{min}", method = RequestMethod.GET)
-    public List<Course> getByReceivedGPA(@PathVariable float max,@PathVariable float min ) {
-        if(max>4||min<0)
-            throw new BadRequestException(400L,"Illegal Argument");
-        List<Course> ans = databaseService.getByReceivedGPA(max,min);
-        if(ans==null||ans.size()==0)
-            throw new NotFoundException(404L,"Not Found" );
+    public List<Course> getByReceivedGPA(@PathVariable float max, @PathVariable float min) {
+        if (max > 4 || min < 0)
+            throw new BadRequestException(400L, "Illegal Argument");
+        List<Course> ans = databaseService.getByReceivedGPA(max, min);
+        if (ans == null || ans.size() == 0)
+            throw new NotFoundException(404L, "Not Found");
         return ans;
     }
+
     @ResponseStatus(HttpStatus.OK)
     @RequestMapping(value = "/studyHrs/{max}.{min}", method = RequestMethod.GET)
-    public List<Course> getByStudyHrs(@PathVariable float max,@PathVariable float min ) {
-        if(min<0)
-            throw new BadRequestException(400L,"Illegal Argument");
-        List<Course> ans = databaseService.getByStudyHrs(max,min);
-        if(ans==null||ans.size()==0)
-            throw new NotFoundException(404L,"Not Found" );
+    public List<Course> getByStudyHrs(@PathVariable float max, @PathVariable float min) {
+        if (min < 0)
+            throw new BadRequestException(400L, "Illegal Argument");
+        List<Course> ans = databaseService.getByStudyHrs(max, min);
+        if (ans == null || ans.size() == 0)
+            throw new NotFoundException(404L, "Not Found");
         return ans;
     }
 }

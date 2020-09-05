@@ -58,7 +58,7 @@ A JSON file will be returned if the query success.
 
 ## Authors
 
-* **Fengyuan Wu** - *Author* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Fengyuan Wu** - *Author* - [wfy0425](https://github.com/wfy0425)
 
 
 ## License

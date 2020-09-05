@@ -202,8 +202,9 @@ public class DatabaseServiceImpl implements DatabaseService {
     public boolean insertAll(JSONArray response) {
         String jsonStr = JSONArray.toJSONString(response);
 
-        List<Course> courseList = JSONArray.parseObject(jsonStr, new TypeReference<List<Course>>() {});
-        for (Course course:courseList) {
+        List<Course> courseList = JSONArray.parseObject(jsonStr, new TypeReference<List<Course>>() {
+        });
+        for (Course course : courseList) {
             String[] courseName = course.getCourse().split("-");
             String[] courseCode = courseName[0].split(" ");
             course.setDepartment(courseCode[0]);
@@ -214,7 +215,7 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
     public List<Course> getByCourse(String department, String courseCode) {
-        return databaseDao.getByCourse(department,courseCode);
+        return databaseDao.getByCourse(department, courseCode);
     }
 
     @Override
@@ -229,21 +230,21 @@ public class DatabaseServiceImpl implements DatabaseService {
 
     @Override
     public List<Course> getByExpectedGPA(float max, float min) {
-        return databaseDao.getByExpectedGPA(max,min);
+        return databaseDao.getByExpectedGPA(max, min);
     }
 
     @Override
     public List<Course> getByReceivedGPA(float max, float min) {
-        return databaseDao.getByReceivedGPA(max,min);
+        return databaseDao.getByReceivedGPA(max, min);
     }
 
     @Override
     public List<Course> getByStudyHrs(float max, float min) {
-        return databaseDao.getByStudyHrs(max,min);
+        return databaseDao.getByStudyHrs(max, min);
     }
 
     @Override
     public List<Course> getByCourseExtend(String department, String courseCode, String instructor, Float maxExpectedGPA, Float minExpectedGPA, Float maxReceivedGPA, Float minReceivedGPA, Float maxStudyHrs, Float minStudyHrs) {
-        return databaseDao.getByCourseExtend(department,courseCode,instructor,maxExpectedGPA,minExpectedGPA,maxReceivedGPA,minReceivedGPA,maxStudyHrs,minStudyHrs);
+        return databaseDao.getByCourseExtend(department, courseCode, instructor, maxExpectedGPA, minExpectedGPA, maxReceivedGPA, minReceivedGPA, maxStudyHrs, minStudyHrs);
     }
 }

@@ -25,16 +25,16 @@ import java.util.List;
 //定义实体Bean扫描包路径
 @EntityScan(basePackages = "org.ucsdcssa.capes.pojo")
 @MapperScan(
-	//指定扫描包
-	basePackages = "org.ucsdcssa.capes.*",
-	//指定SqlSessionFactory，如果sqlSessionTemplate被指定，则作废
-	sqlSessionFactoryRef = "sqlSessionFactory",
-	//指定sqlSessionTemplate，将忽略sqlSessionFactory的配置
-	sqlSessionTemplateRef = "sqlSessionTemplate",
-	//markerInterface = Class.class,//限定扫描接口，不常用
-	annotationClass = Repository.class
+        //指定扫描包
+        basePackages = "org.ucsdcssa.capes.*",
+        //指定SqlSessionFactory，如果sqlSessionTemplate被指定，则作废
+        sqlSessionFactoryRef = "sqlSessionFactory",
+        //指定sqlSessionTemplate，将忽略sqlSessionFactory的配置
+        sqlSessionTemplateRef = "sqlSessionTemplate",
+        //markerInterface = Class.class,//限定扫描接口，不常用
+        annotationClass = Repository.class
 )
-public class CapesApplication  extends WebMvcConfigurerAdapter {
+public class CapesApplication extends WebMvcConfigurerAdapter {
 //
 //	@Bean
 //	public MapperScannerConfigurer mapperScannerConfig() {
@@ -62,31 +62,32 @@ public class CapesApplication  extends WebMvcConfigurerAdapter {
 //    	return bean;
 //    }
 
-	public static void main(String[] args) throws Exception {
-		SpringApplication.run(CapesApplication.class, args);
-	}
-	@Override
-	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
-		super.configureMessageConverters(converters);
-		FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
-		FastJsonConfig fastJsonConfig = new FastJsonConfig();
-		fastJsonConfig.setSerializerFeatures(
-				SerializerFeature.PrettyFormat,
-				SerializerFeature.WriteMapNullValue,
-				SerializerFeature.WriteNullNumberAsZero,
-				SerializerFeature.WriteNullStringAsEmpty
-		);
-		// 处理中文乱码问题
-		List<MediaType> fastMediaTypes = new ArrayList<>();
-		fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
-		fastConverter.setSupportedMediaTypes(fastMediaTypes);
-		fastConverter.setFastJsonConfig(fastJsonConfig);
+    public static void main(String[] args) throws Exception {
+        SpringApplication.run(CapesApplication.class, args);
+    }
 
-		//处理字符串, 避免直接返回字符串的时候被添加了引号
-		StringHttpMessageConverter smc = new StringHttpMessageConverter(Charset.forName("UTF-8"));
-		converters.add(smc);
+    @Override
+    public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+        super.configureMessageConverters(converters);
+        FastJsonHttpMessageConverter fastConverter = new FastJsonHttpMessageConverter();
+        FastJsonConfig fastJsonConfig = new FastJsonConfig();
+        fastJsonConfig.setSerializerFeatures(
+                SerializerFeature.PrettyFormat,
+                SerializerFeature.WriteMapNullValue,
+                SerializerFeature.WriteNullNumberAsZero,
+                SerializerFeature.WriteNullStringAsEmpty
+        );
+        // 处理中文乱码问题
+        List<MediaType> fastMediaTypes = new ArrayList<>();
+        fastMediaTypes.add(MediaType.APPLICATION_JSON_UTF8);
+        fastConverter.setSupportedMediaTypes(fastMediaTypes);
+        fastConverter.setFastJsonConfig(fastJsonConfig);
 
-		converters.add(fastConverter);
-	}
+        //处理字符串, 避免直接返回字符串的时候被添加了引号
+        StringHttpMessageConverter smc = new StringHttpMessageConverter(Charset.forName("UTF-8"));
+        converters.add(smc);
+
+        converters.add(fastConverter);
+    }
 
 }

@@ -27,7 +27,7 @@ public interface DatabaseDao {
             "avgGradeExpected, avgGradeReceived, department, courseCode from course_data " +
             "where " +
             "department = #{department} AND courseCode = #{courseCode}")
-    List<Course> getByCourse(String department,String courseCode);
+    List<Course> getByCourse(String department, String courseCode);
 
     @Select("select instructor, course, term, enroll, evalsMade, rcmndClass, rcmndInstr, studyHrs, " +
             "avgGradeExpected, avgGradeReceived, department, courseCode from course_data " +
@@ -84,12 +84,12 @@ public interface DatabaseDao {
                     "where " +
                     "department = #{department} AND courseCode = #{courseCode}" +
 
-                    "<if test=\"instructor != null\"> AND instructor = #{instructor} </if>"+
-                    "<if test=\"maxExpectedGPA != null\"> <![CDATA[AND avgGradeExpected <= #{maxExpectedGPA}]]> </if>"+
-                    "<if test=\"minExpectedGPA != null\"> AND avgGradeExpected >= #{minExpectedGPA} </if>"+
-                    "<if test=\"maxReceivedGPA != null\"> <![CDATA[AND avgGradeReceived <= #{maxReceivedGPA}]]> </if>"+
-                    "<if test=\"minReceivedGPA != null\"> AND avgGradeReceived >= #{minReceivedGPA} </if>"+
-                    "<if test=\"maxStudyHrs != null\"> <![CDATA[AND studyHrs <= #{maxStudyHrs}]]> </if>"+
+                    "<if test=\"instructor != null\"> AND instructor = #{instructor} </if>" +
+                    "<if test=\"maxExpectedGPA != null\"> <![CDATA[AND avgGradeExpected <= #{maxExpectedGPA}]]> </if>" +
+                    "<if test=\"minExpectedGPA != null\"> AND avgGradeExpected >= #{minExpectedGPA} </if>" +
+                    "<if test=\"maxReceivedGPA != null\"> <![CDATA[AND avgGradeReceived <= #{maxReceivedGPA}]]> </if>" +
+                    "<if test=\"minReceivedGPA != null\"> AND avgGradeReceived >= #{minReceivedGPA} </if>" +
+                    "<if test=\"maxStudyHrs != null\"> <![CDATA[AND studyHrs <= #{maxStudyHrs}]]> </if>" +
                     "<if test=\"minStudyHrs != null\"> AND studyHrs >= #{minStudyHrs} </if>",
             "</script>"
     })

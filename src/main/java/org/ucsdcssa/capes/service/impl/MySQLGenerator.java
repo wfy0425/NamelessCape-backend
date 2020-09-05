@@ -55,7 +55,7 @@ public class MySQLGenerator implements SQLGenerator {
                 sql.append(" ");
                 sql.append(tableColumn.get(key).getColumnType());
                 if (!"".equals(tableColumn.get(key).getExtra()))
-                sql.append(" ");
+                    sql.append(" ");
                 sql.append(tableColumn.get(key).getExtra());
                 if ("NO".equals(tableColumn.get(key).getIsNullable())) {
                     sql.append(" NOT NULL");
@@ -75,6 +75,7 @@ public class MySQLGenerator implements SQLGenerator {
         }
         return sql.toString();
     }
+
     @Override
     public String addColumn(List<Column> columnList) {
         StringBuilder sql = new StringBuilder();
@@ -86,15 +87,15 @@ public class MySQLGenerator implements SQLGenerator {
             sql.append(" ");
             sql.append(column.getColumnType());
             sql.append(" ");
-            if("NO".equals(column.getIsNullable())){
+            if ("NO".equals(column.getIsNullable())) {
                 sql.append("NOT NULL");
             }
-            if(column.getExtra().length()>0){
+            if (column.getExtra().length() > 0) {
                 sql.append(" ");
                 sql.append(column.getExtra());
             }
 
-            if("PRI".equals(column.getColumnKey())){
+            if ("PRI".equals(column.getColumnKey())) {
                 sql.append(" ,add primary key (");
                 sql.append(column.getColumnName());
                 sql.append(")");
@@ -115,15 +116,15 @@ public class MySQLGenerator implements SQLGenerator {
             sql.append(" ");
             sql.append(column.getColumnType());
             sql.append(" ");
-            if("NO".equals(column.getIsNullable())){
+            if ("NO".equals(column.getIsNullable())) {
                 sql.append("NOT NULL");
             }
-            if(column.getExtra().length()>0){
+            if (column.getExtra().length() > 0) {
                 sql.append(" ");
                 sql.append(column.getExtra());
             }
 
-            if("PRI".equals(column.getColumnKey())){
+            if ("PRI".equals(column.getColumnKey())) {
                 sql.append(" ,add primary key (");
                 sql.append(column.getColumnName());
                 sql.append(")");

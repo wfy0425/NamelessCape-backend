@@ -1,12 +1,12 @@
 package org.ucsdcssa.capes.pojo;
 
 public class Column {
-    private String columnName="";
-    private String columnType="";
-    private String columnKey="";
-    private String extra="";
-    private String isNullable="";
-    private String tableName="";
+    private String columnName = "";
+    private String columnType = "";
+    private String columnKey = "";
+    private String extra = "";
+    private String isNullable = "";
+    private String tableName = "";
 
 
     public String getTableName() {
@@ -16,7 +16,6 @@ public class Column {
     public void setTableName(String tableName) {
         this.tableName = tableName;
     }
-
 
 
     public Column() {
@@ -35,23 +34,29 @@ public class Column {
         this.columnName = columnName;
         this.columnType = columnType;
         this.columnKey = columnKey;
-        this.extra=extra;
+        this.extra = extra;
     }
+
     public String getColumnName() {
         return columnName;
     }
+
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
+
     public String getColumnType() {
         return columnType;
     }
+
     public void setColumnType(String columnType) {
         this.columnType = columnType;
     }
+
     public String getColumnKey() {
         return columnKey;
     }
+
     public void setColumnKey(String columnKey) {
         this.columnKey = columnKey;
     }

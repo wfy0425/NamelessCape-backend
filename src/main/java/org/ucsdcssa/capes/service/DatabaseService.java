@@ -17,14 +17,21 @@ public interface DatabaseService {
 //    User getUser(Long id);
 
     boolean insertAll(JSONArray response);
-    List<Course> getByCourse(String department,String courseCode);
-    List<Course> getByCourseExtend(String department,String courseCode,String instructor,
+
+    List<Course> getByCourse(String department, String courseCode);
+
+    List<Course> getByCourseExtend(String department, String courseCode, String instructor,
                                    Float maxExpectedGPA, Float minExpectedGPA,
                                    Float maxReceivedGPA, Float minReceivedGPA,
                                    Float maxStudyHrs, Float minStudyHrs);
+
     List<Course> getByTerm(String term);
+
     List<Course> getByInstructor(String instructor);
+
     List<Course> getByExpectedGPA(float max, float min);
+
     List<Course> getByReceivedGPA(float max, float min);
+
     List<Course> getByStudyHrs(float max, float min);
 }
